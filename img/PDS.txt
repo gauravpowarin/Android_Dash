@@ -1,0 +1,18 @@
+portfolio-website/
+├── index.html
+├── about.html
+├── education.html
+├── experience.html
+├── projects.html
+├── skills.html
+├── contact.html
+├── css/
+│   └── style.css
+├── js/
+│   └── script.js
+└── img/
+    ├── hero-bg.jpg
+    ├── profile.jpg
+    ├── lf4.jpg
+    ├── robosoccer.jpg
+    └── placemaster.jpg
