@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Gaurav Powar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;1,600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f1f1f1;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        /* Header and Navigation - matching other pages */
+        header {
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 70px;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 600;
+            color: #2c3e50;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #3498db;
+        }
+        
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #3498db;
+        }
+        
+        /* Mobile menu */
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+        
+        /* Main content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .page-header p {
+            font-size: 1.1em;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Search functionality */
+        .search-container {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .search-input {
+            padding: 15px 25px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 50px;
+            width: 100%;
+            max-width: 500px;
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .search-input:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.1);
+        }
+        
+        /* Blog grid */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .blog-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .blog-title {
+            color: #2c3e50;
+            margin-bottom: 12px;
+            font-size: 1.4em;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        
+        .blog-meta {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        
+        .blog-excerpt {
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+        
+        .read-more-btn {
+            background: #3498db;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 6px;
+            display: inline-block;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.9em;
+        }
+        
+        .read-more-btn:hover {
+            background: #2980b9;
+            transform: translateY(-1px);
+        }
+        
+        .tags {
+            margin-top: 15px;
+        }
+        
+        .tag {
+            background: #ecf0f1;
+            color: #34495e;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            margin-right: 8px;
+            margin-bottom: 5px;
+            display: inline-block;
+            transition: background 0.3s ease;
+        }
+        
+        .tag:hover {
+            background: #bdc3c7;
+        }
+        
+        /* Loading and error states */
+        .loading, .no-posts {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .loading {
+            font-size: 1.1em;
+            color: #7f8c8d;
+        }
+        
+        .no-posts h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .no-posts p {
+            color: #7f8c8d;
+        }
+        
+        /* Responsive design */
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: flex;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .page-header h1 {
+                font-size: 2em;
+            }
+            
+            .blog-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .blog-card {
+                padding: 20px;
+            }
+            
+            .search-input {
+                padding: 12px 20px;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .page-header h1 {
+                font-size: 1.8em;
+            }
+            
+            .blog-title {
+                font-size: 1.2em;
+            }
+            
+            nav {
+                padding: 0 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Navigation - matching other pages -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">Gaurav Powar</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="education.html">Education</a></li>
+                <li><a href="experience.html">Experience</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="skills.html">Skills</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="page-header">
+            <h1>Blog Posts</h1>
+            <p>Exploring interdisciplinary science at the intersection of astrobiology, biochemistry, and robotics</p>
+        </div>
+        
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search blog posts by title, content, or tags..." id="searchInput">
+        </div>
+        
+        <div id="blogContainer">
+            <div class="loading">Loading blog posts...</div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu functionality
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        class BlogLoader {
+            constructor() {
+                this.blogContainer = document.getElementById('blogContainer');
+                this.searchInput = document.getElementById('searchInput');
+                this.blogPosts = [];
+                this.filteredPosts = [];
+                
+                this.init();
+            }
+            
+            async init() {
+                await this.loadBlogPosts();
+                this.setupSearch();
+            }
+            
+            async loadBlogPosts() {
+                try {
+                    const blogFiles = await this.getBlogFileList();
+                    const posts = [];
+                    
+                    for (const file of blogFiles) {
+                        try {
+                            const response = await fetch(`/blog/${file}`);
+                            if (response.ok) {
+                                const content = await response.text();
+                                const post = this.parsePost(content, file);
+                                if (post) {
+                                    posts.push(post);
+                                }
+                            }
+                        } catch (error) {
+                            console.warn(`Failed to load ${file}:`, error);
+                        }
+                    }
+                    
+                    this.blogPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+                    this.filteredPosts = [...this.blogPosts];
+                    this.renderPosts();
+                    
+                } catch (error) {
+                    this.showError('Failed to load blog posts');
+                    console.error('Error loading blog posts:', error);
+                }
+            }
+            
+            async getBlogFileList() {
+                const possibleFiles = [];
+                
+                // Try different naming patterns
+                for (let i = 1; i <= 20; i++) {
+                    possibleFiles.push(`post-${i}.html`);
+                    possibleFiles.push(`blog-${i}.html`);
+                    possibleFiles.push(`${i.toString().padStart(3, '0')}.html`);
+                }
+                
+                // Add specific blog post names based on your research interests
+                possibleFiles.push(
+                    'astrobiology-research-update.html',
+                    'social-shuffle-2025.html',
+                    'hi.html',
+                    'robotics-project.html',
+                    'iiser-research-experience.html',
+                    'jigyasa-club-update.html',
+                    'first-post.html',
+                    'welcome.html',
+                    'introduction.html'
+                );
+                
+                return possibleFiles;
+            }
+            
+            parsePost(content, filename) {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(content, 'text/html');
+                
+                // Extract title
+                let title = doc.querySelector('h1, h2, title')?.textContent?.trim() || 
+                           filename.replace('.html', '').replace(/[-_]/g, ' ');
+                
+                // Extract meta information
+                const metaDate = doc.querySelector('meta[name="date"]')?.content ||
+                                doc.querySelector('[data-date]')?.getAttribute('data-date') ||
+                                this.extractDateFromContent(content);
+                
+                const metaTags = doc.querySelector('meta[name="keywords"]')?.content?.split(',') || [];
+                
+                // Extract excerpt
+                const firstParagraph = doc.querySelector('p')?.textContent?.trim() || '';
+                const excerpt = firstParagraph.substring(0, 200) + (firstParagraph.length > 200 ? '...' : '');
+                
+                return {
+                    filename,
+                    title,
+                    excerpt,
+                    date: metaDate || new Date().toISOString().split('T')[0],
+                    tags: metaTags.map(tag => tag.trim()).filter(tag => tag),
+                    content: content
+                };
+            }
+            
+            extractDateFromContent(content) {
+                const dateRegex = /(\d{4}-\d{2}-\d{2}|\d{2}\/\d{2}\/\d{4}|\w+ \d{1,2}, \d{4})/;
+                const match = content.match(dateRegex);
+                return match ? match[0] : new Date().toISOString().split('T')[0];
+            }
+            
+            renderPosts() {
+                if (this.filteredPosts.length === 0) {
+                    this.blogContainer.innerHTML = `
+                        <div class="no-posts">
+                            <h3>No blog posts found</h3>
+                            <p>Check back later for new content about astrobiology, robotics, and research updates!</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                const html = `
+                    <div class="blog-grid">
+                        ${this.filteredPosts.map(post => `
+                            <div class="blog-card">
+                                <h2 class="blog-title">${this.escapeHtml(post.title)}</h2>
+                                <div class="blog-meta">
+                                    Published: ${this.formatDate(post.date)}
+                                </div>
+                                <p class="blog-excerpt">${this.escapeHtml(post.excerpt)}</p>
+                                ${post.tags.length > 0 ? `
+                                    <div class="tags">
+                                        ${post.tags.map(tag => `<span class="tag">${this.escapeHtml(tag)}</span>`).join('')}
+                                    </div>
+                                ` : ''}
+                                <a href="/blog/${post.filename}" class="read-more-btn">Read More</a>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                
+                this.blogContainer.innerHTML = html;
+            }
+            
+            setupSearch() {
+                this.searchInput.addEventListener('input', (e) => {
+                    const query = e.target.value.toLowerCase().trim();
+                    
+                    if (query === '') {
+                        this.filteredPosts = [...this.blogPosts];
+                    } else {
+                        this.filteredPosts = this.blogPosts.filter(post => 
+                            post.title.toLowerCase().includes(query) ||
+                            post.excerpt.toLowerCase().includes(query) ||
+                            post.tags.some(tag => tag.toLowerCase().includes(query))
+                        );
+                    }
+                    
+                    this.renderPosts();
+                });
+            }
+            
+            showError(message) {
+                this.blogContainer.innerHTML = `
+                    <div class="no-posts">
+                        <h3>Error</h3>
+                        <p>${message}</p>
+                    </div>
+                `;
+            }
+            
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+            
+            formatDate(dateString) {
+                try {
+                    const date = new Date(dateString);
+                    return date.toLocaleDateString('en-US', { 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric' 
+                    });
+                } catch (error) {
+                    return dateString;
+                }
+            }
+        }
+        
+        // Initialize the blog loader when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new BlogLoader();
+        });
+    </script>
+</body>
+</html>

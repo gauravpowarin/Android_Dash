@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Gaurav Powar</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Filter styles */
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .filter-btn {
+            padding: 8px 20px;
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Gaurav Powar</a>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="education.html">Education</a></li>
+                <li><a href="experience.html">Experience</a></li>
+                <li><a href="projects.html" class="active">Projects</a></li>
+                <li><a href="skills.html">Skills</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <section class="projects">
+        <div class="container">
+            <h1 class="page-title">My Projects</h1>
+            
+            <!-- Filter Buttons -->
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="robotics">Robotics</button>
+                <button class="filter-btn" data-filter="scientific">Scientific</button>
+            </div>
+            
+            <!-- Projects Grid -->
+<div class="projects-grid">
+    <!-- Robotics Projects -->
+    <div class="project-card" data-category="robotics">
+        <div class="project-image">
+            <img src="img/lf4.jpg" alt="Line Following Robot">
+        </div>
+        <div class="project-content">
+            <div class="project-period">March 2024 - August 2024</div>
+            <h3>LF-4: Line Following Robot</h3>
+            <p>Arduino-Nano Based Line Following Robot built using PID controller technology. This project was showcased at the Goa-Regionals competition.</p>
+            <a href="#" class="btn primary-btn">Learn More</a>
+        </div>
+    </div>
+    
+    <div class="project-card" data-category="robotics">
+        <div class="project-image">
+            <img src="img/robosoccer.png" alt="Robo Soccer">
+        </div>
+        <div class="project-content">
+            <div class="project-period">2023</div>
+            <h3>Robo Soccer</h3>
+            <p>Participated in the Robo Soccer competition at Impetus-2023, developing a robot capable of autonomous soccer gameplay.</p>
+            <a href="#" class="btn primary-btn">Learn More</a>
+        </div>
+    </div>
+    
+    <div class="project-card" data-category="robotics">
+        <div class="project-image">
+            <img src="img/placemaster.png" alt="Place Master">
+        </div>
+        <div class="project-content">
+            <div class="project-period">2023</div>
+            <h3>Place Master</h3>
+            <p>Led a cross-functional team in the development of a robotics project for the Place Master competition at Impetus-2023.</p>
+            <a href="#" class="btn primary-btn">Learn More</a>
+        </div>
+    </div>
+    
+    <!-- Scientific Projects - Only showing one actual project -->
+    <div class="project-card" data-category="scientific">
+        <div class="project-image">
+            <img src="img/astrobiology.jpg" alt="Astrobiology Research">
+        </div>
+        <div class="project-content">
+            <div class="project-period">January 2024 - Present</div>
+            <h3>Extraterrestrial Biochemistry Models</h3>
+            <p>Researching alternative biochemical pathways that could support life in extraterrestrial environments, focusing on silicon-based compounds.</p>
+            <a href="https://www.researchgate.net/publication/391901919_Evaluating_Silicon-Based_Life_Could_Silanes_Replace_Hydrocarbons_in_Extraterrestrial_Organisms/" class="btn primary-btn">Learn More</a>
+        </div>
+    </div>
+    
+    <!-- 
+    FUTURE SCIENTIFIC PROJECTS (Currently hidden as comments)
+    These are ready to uncomment when you have completed these projects
+    
+    <div class="project-card" data-category="scientific">
+        <div class="project-image">
+            <img src="img/biochemistry.jpg" alt="Biochemistry Research">
+        </div>
+        <div class="project-content">
+            <div class="project-period">September 2023 - December 2023</div>
+            <h3>Enzyme Kinetics in Extreme Environments</h3>
+            <p>Studied the behavior of extremophile enzymes under varying temperature and pressure conditions to understand adaptations for life in harsh conditions.</p>
+            <a href="#" class="btn primary-btn">Learn More</a>
+        </div>
+    </div>
+    
+    <div class="project-card" data-category="scientific">
+        <div class="project-image">
+            <img src="img/datascience.jpg" alt="Data Science Project">
+        </div>
+        <div class="project-content">
+            <div class="project-period">May 2023 - July 2023</div>
+            <h3>Computational Analysis of Alien Atmospheres</h3>
+            <p>Developed machine learning models to analyze spectral data from exoplanets to identify potential biosignatures and habitable conditions.</p>
+            <a href="#" class="btn primary-btn">Learn More</a>
+        </div>
+    </div>
+    -->
+</div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Me</h3>
+                    <p>Undergraduate researcher exploring the fascinating intersection of astrobiology, biochemistry, and robotics.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Gaurav Powar. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Filter functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        // Function to filter projects
+        const filterProjects = (filter) => {
+            projectCards.forEach(card => {
+                if (filter === 'all' || card.dataset.category === filter) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        };
+
+        // Add click event to filter buttons
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Get filter value and filter projects
+                const filter = button.getAttribute('data-filter');
+                filterProjects(filter);
+            });
+        });
+    </script>
+</body>
+</html>
